@@ -5,6 +5,7 @@
  */
 package animalthread;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 /**
@@ -13,12 +14,12 @@ import javax.swing.JLabel;
  */
 public class AnimalThread extends Thread {
 
-    private String Nombre;
-    private int limite;
-    private JLabel animal;
+    private String nombre;
     private int x;
     private int y;
-    private String nombre;
+    private int limite;
+    private JLabel animal;
+    private JButton boton;
 
     public AnimalThread() {
     }
@@ -31,22 +32,23 @@ public class AnimalThread extends Thread {
         this.animal = animal;
     }
 
- 
     @Override
     public void run() {
+        boolean llegoC = false, llegoT = false, llegoD = false;
         for (int i = x; i <= this.limite; i += 10) {
-            System.out.println(this.nombre + "avanza"); 
-            this.animal.setLocation(i, y);
+            System.out.println(this.nombre + " avanza");
+            this.animal.setLocation(i,y);
             try {
-                sleep(100);
+                sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println(this.nombre="Ha llegado a la meta"); 
-        yield(); 
-    }
+        DesaparecerBotones verificador = new DesaparecerBotones(boton,true);
+        verificador.cambiarEstado(true,this.nombre);
+        System.out.println(this.nombre + " a llegado a la meta");
 
- 
+        yield();
+    }
 
 }
